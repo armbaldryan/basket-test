@@ -51,7 +51,7 @@ export default class Products extends PureComponent {
             product={product}
             key={product.id}
             title="storeProduct"
-            addBasketHandler={this.props.addBasketHandler}
+            handleClick={this.props.handleClick}
             handleDroppableProduct={this.props.handleDroppableProduct}
         />
     ));

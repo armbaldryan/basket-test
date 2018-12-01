@@ -46,7 +46,7 @@ export default class Home extends PureComponent {
         droppableProduct: null,
     };
 
-    addBasketHandler = (data, title) => title === 'storeProduct'
+    clickHandler = (data, title) => title === 'storeProduct'
         ? this.setState({
             products: this.state.products.filter(item => item.id !== data.id).sort((a,b) => a.id - b.id),
             basket: [ ...this.state.basket, data ],
@@ -73,7 +73,7 @@ export default class Home extends PureComponent {
                     >
                         <Products
                             products={this.state.products}
-                            addBasketHandler={this.addBasketHandler}
+                            handleClick={this.clickHandler}
                             handleDroppableProduct={this.droppableProductHandler}
                         />
                     </Col>
@@ -81,7 +81,7 @@ export default class Home extends PureComponent {
                         <Basket
                             basket={this.state.basket}
                             droppableProduct={this.state.droppableProduct}
-                            addBasketHandler={this.addBasketHandler}
+                            handleClick={this.clickHandler}
                         />
                     </Col>
                 </Row>

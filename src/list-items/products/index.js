@@ -25,7 +25,7 @@ export default class ProductListItem extends PureComponent {
         },
     });
 
-    clickHandler = () => this.props.addBasketHandler(this.state.data, this.props.title);
+    clickHandler = () => this.props.handleClick(this.state.data, this.props.title);
 
     onDragStart = () => this.props.handleDroppableProduct(this.state.data);
 

@@ -19,7 +19,7 @@ export default class Products extends PureComponent {
             product={product}
             key={product.id}
             title="basketProduct"
-            addBasketHandler={this.props.addBasketHandler}
+            handleClick={this.props.handleClick}
         />
     ));
 
@@ -31,7 +31,7 @@ export default class Products extends PureComponent {
         event.preventDefault();
     };
 
-    onDrop = () => this.props.addBasketHandler(this.props.droppableProduct, 'storeProduct');
+    onDrop = () => this.props.handleClick(this.props.droppableProduct, 'storeProduct');
 
     render() {
         return (
