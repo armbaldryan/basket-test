@@ -5,6 +5,7 @@ import {
     Row,
     Col,
 } from 'antd';
+import './styles.scss';
 
 export default class Home extends PureComponent {
     /**
@@ -64,9 +65,12 @@ export default class Home extends PureComponent {
 
     render() {
         return (
-            <div className="Home">
+            <div className="home-page">
                 <Row>
-                    <Col span={12} style={{ borderRight: '1px solid #DFDFDF'}}>
+                    <Col
+                        span={12}
+                        className="products-column"
+                    >
                         <Products
                             products={this.state.products}
                             addBasketHandler={this.addBasketHandler}
