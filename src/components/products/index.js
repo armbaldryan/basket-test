@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import ProductListItem from 'list-items/products';
 import { Divider } from 'antd';
 import { Input } from 'antd';
+import './styles.scss';
 
 export default class Products extends PureComponent {
     constructor(props) {
@@ -59,7 +60,12 @@ export default class Products extends PureComponent {
         return (
             <div className="products">
                 <Divider>Products</Divider>
-                <Input placeholder="Search" onChange={this.searchHandler}/>
+                <div className="search-input">
+                    <Input
+                        placeholder="Search"
+                        onChange={this.searchHandler}
+                    />
+                </div>
                 { this.generatedProducts }
             </div>
         );

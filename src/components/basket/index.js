@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Divider } from 'antd';
 import ProductListItem from "list-items/products";
+import './styles.scss';
 
 export default class Products extends PureComponent {
     componentWillMount() {
@@ -37,7 +38,7 @@ export default class Products extends PureComponent {
             <div className="products">
                 <Divider>BasketProducts</Divider>
                 <div
-                    style={{ height: '500px' }}
+                    className="basket-body"
                     onDragOver={this.onDragOver}
                     onDrop={this.onDrop}
                 >

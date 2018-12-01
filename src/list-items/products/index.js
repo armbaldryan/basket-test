@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { InputNumber } from 'antd';
 import { Button } from 'antd';
+import './styles.scss';
 
 export default class ProductListItem extends PureComponent {
     constructor(props) {
@@ -14,7 +15,7 @@ export default class ProductListItem extends PureComponent {
             inputValue: props.product
                 ? props.product.count
                 : 0,
-        }
+        };
     }
 
     changeHandler = count => this.setState({
@@ -31,10 +32,7 @@ export default class ProductListItem extends PureComponent {
     render() {
         return (
             <div
-                className="product-list-item" style={{
-                    border: '1px solid grey',
-                    margin: 10
-                }}
+                className="product-list-item"
                  draggable={this.props.title === 'storeProduct' && this.state.data.count > 0}
                  onDragStart={this.props.title === 'storeProduct'
                      ? this.onDragStart
@@ -48,11 +46,14 @@ export default class ProductListItem extends PureComponent {
                             alt=""
                         />
                     </Col>
-                    <Col span={12}>
-                        <p>
+                    <Col
+                        span={12}
+                        className="product-descr"
+                    >
+                        <p className="product-name">
                             {this.state.data.name}
                         </p>
-                        <p>
+                        <p className="product-price">
                             {
                                 this.state.data.count
                                     ? this.state.data.price * this.state.data.count
@@ -60,14 +61,17 @@ export default class ProductListItem extends PureComponent {
                             }
                         </p>
                     </Col>
-                    <Col span={6}>
+                    <Col
+                        span={6}
+                        className="buttons-field"
+                    >
                         <InputNumber
-                            disabled={this.props.title === 'basketProduct'}
                             min={0}
                             defaultValue={this.state.data.count}
                             onChange={this.changeHandler}
                         />
                         <Button
+                            className="add-button"
                             type="primary"
                             disabled={!this.state.data.count}
                             onClick={this.clickHandler}
