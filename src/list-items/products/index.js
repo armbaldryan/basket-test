@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     Row,
     Col,
@@ -6,32 +6,29 @@ import {
 import { InputNumber } from 'antd';
 import { Button } from 'antd';
 
-export default class ProductListItem extends Component {
+export default class ProductListItem extends PureComponent {
     constructor(props) {
         super(props);
         this.state={
             data: props.product || {},
-            inputValue: props.product ? props.product.count : 0,
+            inputValue: props.product
+                ? props.product.count
+                : 0,
         }
     }
 
-    changeHandler = (count) => this.setState({
+    changeHandler = count => this.setState({
         data: {
             ...this.state.data,
-            count
+            count,
         },
     });
 
-    clickHandler = () => {
-        this.props.addBasketHandler(this.state.data, this.props.title);
-    };
+    clickHandler = () => this.props.addBasketHandler(this.state.data, this.props.title);
 
-    onDragStart = () => {
-        this.props.handleDroppableProduct(this.state.data)
-    };
+    onDragStart = () => this.props.handleDroppableProduct(this.state.data);
 
     render() {
-        console.log('this.props :::', this.props);
         return (
             <div
                 className="product-list-item" style={{
@@ -46,14 +43,21 @@ export default class ProductListItem extends Component {
             >
                 <Row>
                     <Col span={6}>
-                        <img src={this.state.data.image} alt=""/>
+                        <img
+                            src={this.state.data.image}
+                            alt=""
+                        />
                     </Col>
                     <Col span={12}>
                         <p>
                             {this.state.data.name}
                         </p>
                         <p>
-                            {this.state.data.price}
+                            {
+                                this.state.data.count
+                                    ? this.state.data.price * this.state.data.count
+                                    : this.state.data.price
+                            }
                         </p>
                     </Col>
                     <Col span={6}>

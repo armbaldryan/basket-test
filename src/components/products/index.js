@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ProductListItem from 'list-items/products';
 import { Divider } from 'antd';
 import { Input } from 'antd';
 
-export default class Products extends Component {
+export default class Products extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +17,12 @@ export default class Products extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        /**
+         * First of all we check if data is changed, than check
+         * if we have filterValue than filter and regenerate products list with
+         * filtered value and new props, if not
+         * than simple generate with new props
+         */
         if (this.props.products.length !== nextProps.products.length) {
             if (this.state.filterName) {
                 const products = nextProps.products.filter(product => product.name.toLowerCase().includes(this.state.filterName));
@@ -27,7 +33,7 @@ export default class Products extends Component {
         }
     }
 
-    searchHandler = (event) => {
+    searchHandler = event => {
         const { target } = event;
         this.setState(() => {
             const products = this.props.products.filter(product => product.name.toLowerCase().includes(target.value));
@@ -39,7 +45,7 @@ export default class Products extends Component {
         });
     };
 
-    generateProducts = (products) => products.map(product => (
+    generateProducts = products => products.map(product => (
         <ProductListItem
             product={product}
             key={product.id}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Basket from 'components/basket';
 import Products from 'components/products';
 import {
@@ -6,7 +6,10 @@ import {
     Col,
 } from 'antd';
 
-export default class Home extends Component {
+export default class Home extends PureComponent {
+    /**
+     * Products data is mock
+     */
     state = {
        products: [
            {
@@ -42,26 +45,22 @@ export default class Home extends Component {
         droppableProduct: null,
     };
 
-    addBasketHandler = (data, title) => {
-        title === 'storeProduct'
-            ? this.setState({
-                products: this.state.products.filter((item) => item.id !== data.id).sort((a,b) => a.id - b.id),
-                basket: [...this.state.basket, data],
-            })
-            : this.setState({
-                products: [...this.state.products, {
-                    ...data,
-                    count: 0,
-                }].sort((a,b) => a.id - b.id),
-                basket: this.state.basket.filter((item) => item.id !== data.id),
-            })
-    };
-
-    droppableProductHandler = (droppableProduct) => {
-        this.setState({
-            droppableProduct
+    addBasketHandler = (data, title) => title === 'storeProduct'
+        ? this.setState({
+            products: this.state.products.filter(item => item.id !== data.id).sort((a,b) => a.id - b.id),
+            basket: [ ...this.state.basket, data ],
         })
-    };
+        : this.setState({
+            products: [ ...this.state.products, {
+                ...data,
+                count: 0,
+            }].sort((a,b) => a.id - b.id),
+            basket: this.state.basket.filter(item => item.id !== data.id),
+        });
+
+    droppableProductHandler = droppableProduct => this.setState({
+        droppableProduct,
+    });
 
     render() {
         return (

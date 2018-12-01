@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Divider } from 'antd';
 import ProductListItem from "list-items/products";
 
-export default class Products extends Component {
+export default class Products extends PureComponent {
     componentWillMount() {
         this.generatedProducts = this.generateProducts(this.props.basket);
     }
@@ -13,7 +13,7 @@ export default class Products extends Component {
         }
     }
 
-    generateProducts = (products) => products.map(product => (
+    generateProducts = products => products.map(product => (
         <ProductListItem
             product={product}
             key={product.id}
@@ -22,14 +22,15 @@ export default class Products extends Component {
         />
     ));
 
-    onDragOver = (event) => {
+    /**
+     * This function is for avoiding overriding
+     */
+    onDragOver = event => {
         event.stopPropagation();
         event.preventDefault();
     };
 
-    onDrop = (event, data) => {
-        this.props.addBasketHandler(data, 'storeProduct')
-    };
+    onDrop = () => this.props.addBasketHandler(this.props.droppableProduct, 'storeProduct');
 
     render() {
         return (
@@ -37,8 +38,8 @@ export default class Products extends Component {
                 <Divider>BasketProducts</Divider>
                 <div
                     style={{ height: '500px' }}
-                    onDragOver={(event) => this.onDragOver(event)}
-                    onDrop={(event) => this.onDrop(event, this.props.droppableProduct)}
+                    onDragOver={this.onDragOver}
+                    onDrop={this.onDrop}
                 >
                     { this.generatedProducts }
                 </div>
